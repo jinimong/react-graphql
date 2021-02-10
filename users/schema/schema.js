@@ -8,6 +8,7 @@ const {
   GraphQLNonNull,
   GraphQLString,
   GraphQLInt,
+  GraphQLBoolean,
 } = graphql;
 
 const CompanyType = new GraphQLObjectType({
@@ -85,6 +86,16 @@ const mutation = new GraphQLObjectType({
             age,
           })
           .then((response) => response.data);
+      },
+    },
+    deleteUser: {
+      type: GraphQLBoolean,
+      args: { id: { type: new GraphQLNonNull(GraphQLString) } },
+      resolve(parentValue, args) {
+        return axios
+          .delete(`http://localhost:3000/users/${args.id}`)
+          .then((response) => true)
+          .catch((error) => false);
       },
     },
   },
