@@ -17,9 +17,18 @@ class Header extends Component {
       return <div />;
     }
     return user ? (
-      <li>
-        <a onClick={this.onLogoutClick.bind(this)}>Logout</a>
-      </li>
+      <div>
+        <li
+          style={{
+            color: 'lightgray',
+          }}
+        >
+          Hello, {user.email}
+        </li>
+        <li>
+          <a onClick={this.onLogoutClick.bind(this)}>Logout</a>
+        </li>
+      </div>
     ) : (
       <div>
         <li>
