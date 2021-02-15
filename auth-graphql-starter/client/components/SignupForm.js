@@ -18,11 +18,16 @@ class SignupForm extends Component {
         variables: { email, password },
         refetchQueries: [{ query }],
       })
-      .then(() => hashHistory.push('/'))
       .catch((response) => {
         const errors = response.graphQLErrors.map((error) => error.message);
         this.setState({ errors });
       });
+  }
+
+  componentWillUpdate(nextProps) {
+    if (!this.props.data.user && nextProps.data.user) {
+      hashHistory.push('/dashboard');
+    }
   }
 
   render() {
@@ -38,4 +43,4 @@ class SignupForm extends Component {
   }
 }
 
-export default graphql(mutation)(SignupForm);
+export default graphql(query)(graphql(mutation)(SignupForm));
